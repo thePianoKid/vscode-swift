@@ -1,3 +1,11 @@
+# Ensure dependencies are installed so the correct pinned tool versions are used.
+# npm writes node_modules/.package-lock.json after a successful install, so its
+# absence means dependencies are missing or out of sync.
+if [ ! -f node_modules/.package-lock.json ]; then
+  echo "Dependencies are not installed. Running 'npm ci'..."
+  npm ci
+fi
+
 # Store list of staged files before formatting
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
 
